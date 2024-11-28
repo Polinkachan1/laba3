@@ -81,42 +81,25 @@ void shaker_sort(int *matrix, int N) {
                 swapped = true;
             }
         }
-    } 
+    }
 }
 void comb_sort(int* matrix, int N) {
-    int temp;
-    float k = 1.247, S = N - 1;
-    int count = 0;
-    while (S >= 1)
-    {
-        for (int i = 0; i + S < N; i++)
-        {
-            if (*(matrix+i) > *(matrix+int(i + S)))
-            {
-                temp = *(matrix+int(i + S));
-                *(matrix+int(i + S)) = *(matrix+i);
-                *(matrix+i) = temp;
-            }
-        }
-        S /= k;
-    }
+    float k = 1.247;
+    int S = N*N;
+    bool swapped = true;
 
-    while (true)
-    {
-        for (int i = 0; i < N - 1; i++)
-        {
-            if (*(matrix+i) > *(matrix+i + 1))
-            {
-                temp = *(matrix+i + 1);
-                *(matrix+i + 1) = *(matrix+i);
-                *(matrix+i) = temp;
-            }
-            else count++;
+    while (S > 1 || swapped) {
+        if (S > 1) {
+            S /= k;
         }
-        if (count == N - 1)
-            break;
-        else
-            count = 0;
+        swapped = false;
+
+        for (int i = 0; i + S < N*N; i++) {
+            if (*(matrix + i) > *(matrix + i + S)) {
+                swap(*(matrix + i), *(matrix + i + S));
+                swapped = true;
+            }
+        }
     }
 }
 void quick_sort(int* matrix, int* begin, int* end) {
